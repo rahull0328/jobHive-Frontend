@@ -8,6 +8,9 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -17,6 +20,8 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -25,10 +30,9 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
       if (res.data.success) {
@@ -36,41 +40,49 @@ const Login = () => {
         toast.success(res.data.message);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center max-w-7xl mx-auto">
+      <div className="flex items-center justify-center px-2 py-30">
         <form
           onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
+          className="w-full max-w-md bg-white shadow-xl rounded-xl p-8"
         >
-          <h1 className="font-bold text-xl mb-5">Login</h1>
-          <div className="my-2">
-            <Label>Email</Label>
+          <h1 className="text-2xl font-bold text-center text-gray-800">Welcome Back 👋</h1>
+
+          <div className="mb-4">
+            <Label className="mb-1 block">Email</Label>
             <Input
               type="email"
               name="email"
               value={input.email}
               onChange={changeEventHandler}
               placeholder="john@gmail.com"
+              className="w-full"
             />
           </div>
-          <div className="my-2">
-            <Label>Password</Label>
+
+          <div className="mb-4">
+            <Label className="mb-1 block">Password</Label>
             <Input
               type="password"
               name="password"
               value={input.password}
               onChange={changeEventHandler}
               placeholder="********"
+              className="w-full"
             />
           </div>
-          <div className="flex items-center justify-between">
-            <RadioGroup className="flex items-center gap-4 my-5">
+
+          <div className="mb-5">
+            <Label className="block mb-2">Role</Label>
+            <RadioGroup className="flex gap-6">
               <div className="flex items-center space-x-2">
                 <Input
                   type="radio"
@@ -80,7 +92,7 @@ const Login = () => {
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
-                <Label htmlFor="r1">Student</Label>
+                <Label>Student</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Input
@@ -91,19 +103,31 @@ const Login = () => {
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
-                <Label htmlFor="r2">Recruiter</Label>
+                <Label>Recruiter</Label>
               </div>
             </RadioGroup>
           </div>
-          <Button type="submit" className="w-full my-4">
-            Login
-          </Button>
-          <span className="text-sm">
+
+          {loading ? (
+            <Button className="w-full bg-gray-500 cursor-not-allowed">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please Wait...
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-[#EF88AD] to-[#FF5C8D] hover:opacity-90 transition"
+            >
+              Login
+            </Button>
+          )}
+
+          <p className="text-sm mt-4 text-center">
             Don't have an account?{" "}
-            <Link to="/register" className="text-[#EF88AD]">
+            <Link to="/register" className="text-[#EF88AD] hover:underline">
               Register
             </Link>
-          </span>
+          </p>
         </form>
       </div>
     </div>
