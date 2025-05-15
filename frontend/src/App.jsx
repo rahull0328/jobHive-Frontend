@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/shared/Navbar'
 import Login from './components/auth/login'
 import Register from './components/auth/register'
 import Home from './components/Home'
+import Jobs from './components/jobs/Jobs'
 
 const appRouter = createBrowserRouter([
   {
@@ -17,6 +17,10 @@ const appRouter = createBrowserRouter([
   {
     path: '/register',
     element: <Register />
+  },
+  {
+    path: '/jobs',
+    element: <Jobs />
   },
 ])
 
