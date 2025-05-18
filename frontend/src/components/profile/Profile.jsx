@@ -7,12 +7,18 @@ import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import AppliedJobsTable from "./AppliedJobsTable";
 import UpdateProfile from "./UpdateProfile";
+import { useSelector } from "react-redux";
+import store from "@/redux/store";
 
 const skills = ["HTML", "CSS", "JS", "React", "Node", "Express"];
 const isResume = true;
 
 const Profile = () => {
-  const [open, setOpen] = useState(false)
+
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((store) => store.auth);
+
+
   return (
     <div>
       <Navbar />
@@ -26,8 +32,8 @@ const Profile = () => {
               />
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">Fullname</h1>
-              <p>Bio</p>
+              <h1 className="font-medium text-xl">{user?.fullname}</h1>
+              <p>{user?.profile?.bio}</p>
             </div>
           </div>
           <Button
@@ -41,19 +47,21 @@ const Profile = () => {
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
-            <span>Email</span>
+            <span>{user?.email}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <Contact />
-            <span>Phone Number</span>
+            <span>{user?.phoneNumber}</span>
           </div>
         </div>
         <div className="my-5">
           <h1>Skills</h1>
           <div className="flex items-center gap-1">
-            {
-              skills.length != 0 ? skills.map((item, index) => <Badge key={index}>{item}</Badge>) : (<span>NA</span>)
-            }
+            {skills.length != 0 ? (
+              user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge key={index}>{item}</Badge>) : <span>Add New Skills By Updating Your Profile</span>
+            ) : (
+              <span>NA</span>
+            )}
           </div>
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -61,7 +69,7 @@ const Profile = () => {
           {isResume ? (
             <a
               target="blank"
-              href='http://www.github.com/rahull0328'
+              href="http://www.github.com/rahull0328"
               className="text-[#EF88AD] w-full hover:underline cursor-pointer"
             >
               resume original name
