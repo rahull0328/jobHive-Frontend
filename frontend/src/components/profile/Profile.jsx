@@ -10,14 +10,11 @@ import UpdateProfile from "./UpdateProfile";
 import { useSelector } from "react-redux";
 import store from "@/redux/store";
 
-const skills = ["HTML", "CSS", "JS", "React", "Node", "Express"];
+// const skills = ["HTML", "CSS", "JS", "React", "Node", "Express"];
 const isResume = true;
-
 const Profile = () => {
-
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store) => store.auth);
-
 
   return (
     <div>
@@ -57,8 +54,10 @@ const Profile = () => {
         <div className="my-5">
           <h1>Skills</h1>
           <div className="flex items-center gap-1">
-            {skills.length != 0 ? (
-              user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge key={index}>{item}</Badge>) : <span>Add New Skills By Updating Your Profile</span>
+            {user?.profile?.skills.length !== 0 ? (
+              user?.profile?.skills.map((item, index) => (
+                <Badge key={index}>{item}</Badge>
+              ))
             ) : (
               <span>NA</span>
             )}
@@ -69,10 +68,10 @@ const Profile = () => {
           {isResume ? (
             <a
               target="blank"
-              href="http://www.github.com/rahull0328"
+              href={user?.profile?.resume}
               className="text-[#EF88AD] w-full hover:underline cursor-pointer"
             >
-              resume original name
+              {user?.profile?.resumeOriginalName}
             </a>
           ) : (
             <span>NA</span>
