@@ -4,25 +4,34 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import CompanyInfo from "./CompanyInfo";
 import { useNavigate } from "react-router-dom";
+import useGetAllCompanies from "@/hooks/useGetAllCompanies";
 
 const Companies = () => {
-
-  const navigate = useNavigate()
+  useGetAllCompanies();
+  const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-6xl mx-auto my-10">
-        <div className="flex items-center justify-between my-5">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {/* Heading and actions */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <Input
-            className="w-fit"
+            className="w-full sm:w-64"
             placeholder="Filter by name"
           />
-          <Button onClick={() => navigate("/admin/companies/create")}>
+          <Button
+            onClick={() => navigate("/admin/companies/create")}
+            className="w-full sm:w-auto"
+          >
             New Company
           </Button>
         </div>
-        <CompanyInfo />
+
+        {/* Company Table */}
+        <div className="overflow-x-auto">
+          <CompanyInfo />
+        </div>
       </div>
     </div>
   );
