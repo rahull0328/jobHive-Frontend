@@ -8,6 +8,8 @@ import Browse from './components/browse/Browse'
 import Profile from './components/profile/Profile'
 import JobDescription from './components/jobs/JobDescription'
 import Companies from './components/admin/Companies'
+import CreateCompany from './components/admin/CreateCompany'
+import CompanySetup from './components/admin/CompanySetup'
 
 const appRouter = createBrowserRouter([
   //student routes
@@ -46,8 +48,12 @@ const appRouter = createBrowserRouter([
     element: <Companies />
   },
   {
-    path: '/profile',
-    element: <Profile />
+    path: '/admin/companies/create',
+    element: <CreateCompany />
+  },
+  {
+    path: '/admin/companies/:id',
+    element: <CompanySetup />
   },
 ])
 
