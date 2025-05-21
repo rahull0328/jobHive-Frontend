@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   useGetAllJobs()
-
+  
   //routing admin after login
   const {user} = useSelector(store=>store.auth)
   const navigate = useNavigate()

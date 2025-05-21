@@ -8,10 +8,14 @@ import { Input } from "../ui/input";
 import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import store from "@/redux/store";
+import useGetComanyById from "@/hooks/useGetCompanyById";
 
 const CompanySetup = () => {
   const navigate = useNavigate();
   const params = useParams();
+
   const [input, setInput] = useState({
     name: "",
     description: "",
@@ -19,7 +23,29 @@ const CompanySetup = () => {
     location: "",
     file: null,
   });
+
+  const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useGetComanyById(params.id);
+  const { singleCompany } = useSelector((store) => store.company);
+
+  useEffect(() => {
+    if (singleCompany) {
+      setInput({
+        name: singleCompany.name || "",
+        description: singleCompany.description || "",
+        website: singleCompany.website || "",
+        location: singleCompany.location || "",
+        file: null, // New uploads handled separately
+      });
+
+      // Set preview to existing Cloudinary image URL
+      if (singleCompany.file) {
+        setPreview(singleCompany.file);
+      }
+    }
+  }, [singleCompany]);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -27,7 +53,16 @@ const CompanySetup = () => {
 
   const changeFileHandler = (e) => {
     const file = e.target.files?.[0];
-    setInput({ ...input, file });
+    if (file) {
+      setInput({ ...input, file });
+
+      // Generate preview for newly selected image
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const submitHandler = async (e) => {
@@ -43,7 +78,6 @@ const CompanySetup = () => {
     }
 
     try {
-      //api call
       const companyId = params.id;
       setLoading(true);
       const res = await axios.put(
@@ -63,27 +97,17 @@ const CompanySetup = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    setInput({
-      name: "single",
-      description: "",
-      website: "",
-      location: "",
-      file: null,
-    });
-  });
-
   return (
     <div>
       <Navbar />
       <div className="max-w-xl mx-auto my-10">
-        <form action="" onSubmit={submitHandler}>
+        <form onSubmit={submitHandler}>
           <div className="flex items-center gap-5 p-8">
             <Button
               onClick={() => navigate("/admin/companies")}
@@ -95,6 +119,7 @@ const CompanySetup = () => {
             </Button>
             <h1 className="font-bold text-xl">Company Setup</h1>
           </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Company Name</Label>
@@ -132,19 +157,27 @@ const CompanySetup = () => {
                 onChange={changeEventHandler}
               />
             </div>
-            <div>
+            <div className="col-span-2">
               <Label>Logo</Label>
-              <Input
-                type="file"
-                accept="image/*"
-                onChange={changeFileHandler}
-              />
+              <Input type="file" accept="image/*" onChange={changeFileHandler} />
             </div>
+
+            {/* Preview block */}
+            {preview && (
+              <div className="col-span-2 mt-4">
+                <Label className="mb-1 block">Current Logo</Label>
+                <img
+                  src={preview}
+                  alt="Company Logo"
+                  className="w-32 h-32 object-cover rounded-lg border shadow"
+                />
+              </div>
+            )}
           </div>
+
           {loading ? (
-            <Button className="w-full my-4">
-              {" "}
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+            <Button className="w-full my-4" disabled>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
             </Button>
           ) : (
             <Button type="submit" className="w-full my-4">
