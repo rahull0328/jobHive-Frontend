@@ -165,7 +165,7 @@ const CompanySetup = () => {
             {/* Preview block */}
             {preview && (
               <div className="col-span-2 mt-4">
-                <Label className="mb-1 block">Current Logo</Label>
+                <Label className="mb-1 block">Logo Preview</Label>
                 <img
                   src={preview}
                   alt="Company Logo"

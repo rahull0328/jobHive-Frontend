@@ -23,6 +23,7 @@ function Navbar() {
       });
       if (res.data.success) {
         dispatch(setUser(null));
+        navigate("/login")
         toast.success(res.data.message);
       }
     } catch (error) {
@@ -80,7 +81,7 @@ function Navbar() {
                 <Avatar className="cursor-pointer">
                   <AvatarImage
                     src={user?.profile?.profilePhoto}
-                    alt="@shadcn"
+                    alt="profile photo"
                   />
                 </Avatar>
               </PopoverTrigger>
