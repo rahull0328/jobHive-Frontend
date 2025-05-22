@@ -44,7 +44,7 @@ function Navbar() {
             {user && user.role === 'recruiter' ? (
               <>
                 <li>
-                  <Link to="/admin/company">Comapnies</Link>
+                  <Link to="/admin/companies">Comapnies</Link>
                 </li>
                 <li>
                   <Link to="/admin/jobs">Jobs</Link>
