@@ -1,10 +1,10 @@
-import store from "@/redux/store";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Edit2, Eye, MoreHorizontal } from "lucide-react";
+import store from "@/redux/store";
 
 const AdminJobsInfo = () => {
 
@@ -22,7 +22,7 @@ const AdminJobsInfo = () => {
         })
         setFilterJobs(filteredJobs)
     }, [allAdminJobs, searchJobByText])
-    
+
   return (
     <div>
       <Table>
