@@ -62,9 +62,11 @@ export const getAllJobs = async (req, res) => {
         { description: { $regex: keyword, $options: "i" } },
       ],
     };
-    const jobs = await Job.find(query).populate({
-      path: "company"
-    }).sort({createdAt: -1});
+    const jobs = await Job.find(query)
+      .populate({
+        path: "company",
+      })
+      .sort({ createdAt: -1 });
     if (!jobs) {
       return res.status(404).json({
         message: "No Jobs Found !",
@@ -94,33 +96,87 @@ export const getJobById = async (req, res) => {
     }
 
     return res.status(200).json({
-        job,
-        success: true,
-    })
+      job,
+      success: true,
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
 export const getJobsCreateByAdmin = async (req, res) => {
-    try {
-        const adminId = req.id
-        const jobs = await Job.find({created_by: adminId}).populate({
-          path: "company",
-          createdAt: -1,
-        })
-        if(!jobs) {
-            return res.status(404).json({
-                message: "No Jobs Found !",
-                success: false,
-            })
-        }
-
-        return res.status(200).json({
-            jobs,
-            success: true,
-        })
-    } catch (error) {
-        console.log(error)
+  try {
+    const adminId = req.id;
+    const jobs = await Job.find({ created_by: adminId }).populate({
+      path: "company",
+      createdAt: -1,
+    });
+    if (!jobs) {
+      return res.status(404).json({
+        message: "No Jobs Found !",
+        success: false,
+      });
     }
-}
+
+    return res.status(200).json({
+      jobs,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateJob = async (req, res) => {
+  try {
+    //getting the particular jobId
+    const jobId = req.params.id;
+
+    //fetching data from the frontend
+    const {
+      title,
+      description,
+      requirements,
+      salary,
+      location,
+      jobType,
+      experience,
+      position,
+      companyId,
+    } = req.body;
+
+    //finding if the job exists or not
+    const updateData = {
+      title,
+      description,
+      requirements,
+      salary,
+      location,
+      jobType,
+      experience,
+      position,
+    };
+
+    const job = await Job.findByIdAndUpdate(jobId, updateData, { new: true });
+
+    //validation
+    if (!job) {
+      return res.status(404).json({
+        message: "Job Not Found !",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Job Updated Successfully !",
+      job,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Something went wrong while updating the job.",
+      success: false,
+    });
+  }
+};
