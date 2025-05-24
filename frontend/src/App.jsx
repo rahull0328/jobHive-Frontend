@@ -14,6 +14,7 @@ import AdminJobs from './components/admin/AdminJobs'
 import AdminJobsInfo from './components/admin/AdminJobsInfo'
 import PostJob from './components/admin/PostJob'
 import JobSetup from './components/admin/JobSetup'
+import TotalApplicants from './components/admin/TotalApplicants'
 
 const appRouter = createBrowserRouter([
   //student routes
@@ -70,6 +71,10 @@ const appRouter = createBrowserRouter([
   {
     path: '/admin/jobs/:id',
     element: <JobSetup />
+  },
+  {
+    path: '/admin/jobs/:id/applicants',
+    element: <TotalApplicants />
   },
 ])
 
