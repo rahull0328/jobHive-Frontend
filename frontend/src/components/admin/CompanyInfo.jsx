@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -31,7 +30,7 @@ const CompanyInfo = () => {
   }, [companies, searchCompanyByText]);
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6">
+    <div className="bg-gray-100 rounded-2xl p-6">
       <h2 className="text-2xl font-semibold mb-4 text-gray-800">
         Registered Companies
       </h2>

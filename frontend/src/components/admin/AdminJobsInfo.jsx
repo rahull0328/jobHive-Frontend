@@ -24,7 +24,7 @@ const AdminJobsInfo = () => {
     }, [allAdminJobs, searchJobByText])
 
   return (
-    <div>
+    <div className="bg-gray-100 rounded-2xl p-6">
       <Table>
         <TableCaption>A list of your recent posted jobs</TableCaption>
         <TableHeader>
@@ -46,10 +46,10 @@ const AdminJobsInfo = () => {
                   <PopoverTrigger>
                     <MoreHorizontal />
                   </PopoverTrigger>
-                  <PopoverContent className="w-32">
+                  <PopoverContent className="w-32 cursor-pointer">
                     <div
                       onClick={() => navigate(`/admin/jobs/${job._id}`)}
-                      className="flex items-center gap-2 w-fit cursor-pointer"
+                      className="flex items-center gap-2 w-fit"
                     >
                       <Edit2 className="w-4" />
                       <span>Edit</span>
