@@ -9,6 +9,7 @@ import { APPLICATION_API_END_POINT } from "@/utils/constant";
 import { setAllApplicants } from "@/redux/applicationSlice";
 
 const TotalApplicants = () => {
+
   const params = useParams();
   const dispatch = useDispatch();
   const { applicants } = useSelector((store) => store.application);
@@ -32,7 +33,7 @@ const TotalApplicants = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mt-18">
         <h1 className="font-bold text-xl my-5">
           Applicants {applicants?.applications?.length}
         </h1>

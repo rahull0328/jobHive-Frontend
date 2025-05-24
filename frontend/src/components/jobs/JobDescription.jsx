@@ -73,7 +73,7 @@ const JobDescription = () => {
   }, [jobId, dispatch, user?._id]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 text-gray-900">
+    <div className="min-h-screen mt-12 bg-gradient-to-b from-white via-slate-50 to-slate-100 text-gray-900">
       <Navbar />
       <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">

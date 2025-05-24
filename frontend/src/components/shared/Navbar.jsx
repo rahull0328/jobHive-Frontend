@@ -44,7 +44,7 @@ function Navbar() {
 
         {/* Hamburger for Mobile */}
         <div className="md:hidden">
-          <button onClick={toggleMenu}>
+          <button onClick={toggleMenu} className="cursor-pointer">
             {menuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
