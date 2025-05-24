@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 const HeroSection = () => {
   return (
     <div className="text-center">
-      <div className="flex flex-col gap-5 my-20">
+      <div className="flex flex-col gap-5 my-26">
         <span className=" mx-auto px-4 py-2 rounded-full bg-gray-100 text-[#6A38C2] font-medium">
           Your #1 Destination for Career Success
         </span>
