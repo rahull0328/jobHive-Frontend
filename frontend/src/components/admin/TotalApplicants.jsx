@@ -9,7 +9,6 @@ import { APPLICATION_API_END_POINT } from "@/utils/constant";
 import { setAllApplicants } from "@/redux/applicationSlice";
 
 const TotalApplicants = () => {
-
   const params = useParams();
   const dispatch = useDispatch();
   const { applicants } = useSelector((store) => store.application);
@@ -30,14 +29,17 @@ const TotalApplicants = () => {
     };
     fetchApplicants();
   }, []);
+
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50 mt-10">
       <Navbar />
-      <div className="max-w-7xl mt-18">
-        <h1 className="font-bold text-xl my-5">
-          Applicants {applicants?.applications?.length}
-        </h1>
-        <ApplicantsInfo />
+      <div className="w-full flex justify-center px-4 py-8">
+        <div className="w-full max-w-6xl">
+          <h1 className="font-bold text-2xl mb-6">
+            Applicants ({applicants?.applications?.length || 0})
+          </h1>
+          <ApplicantsInfo />
+        </div>
       </div>
     </div>
   );
