@@ -9,9 +9,8 @@ import {
   TableRow,
 } from "../ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Users } from "lucide-react";
 import { useSelector } from "react-redux";
-import store from "@/redux/store";
 import axios from "axios";
 import { APPLICATION_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
@@ -27,9 +26,8 @@ const ApplicantsInfo = () => {
       axios.defaults.withCredentials = true;
       const res = await axios.put(
         `${APPLICATION_API_END_POINT}/status/${id}/update`,
-        { status } 
+        { status }
       );
-      console.log(res);
       if (res.data.success) {
         toast.success(res.data.message);
       }
@@ -38,13 +36,12 @@ const ApplicantsInfo = () => {
     }
   };
 
+  const hasApplicants = applicants?.applications?.length > 0;
+
   return (
-    <div className="w-full min-h-screen flex justify-center items-start px-4 py-10">
+    <div className="w-full min-h-[60vh] flex justify-center items-start px-4 py-10">
       <div className="w-full max-w-6xl overflow-x-auto rounded-lg shadow-md bg-white">
         <Table>
-          <TableCaption className="text-sm text-gray-500">
-            A list of your recently applied users
-          </TableCaption>
           <TableHeader>
             <TableRow className="bg-gray-100">
               <TableHead>Full Name</TableHead>
@@ -56,8 +53,8 @@ const ApplicantsInfo = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {applicants &&
-              applicants?.applications?.map((item) => (
+            {hasApplicants ? (
+              applicants.applications.map((item) => (
                 <TableRow
                   key={item._id}
                   className="hover:bg-gray-50 transition-colors"
@@ -68,7 +65,7 @@ const ApplicantsInfo = () => {
                   <TableCell>
                     {item.applicant?.profile?.resume ? (
                       <a
-                        className="text-blue-600 underline"
+                        className="text-[#EF88AD] underline"
                         href={item?.applicant?.profile?.resume}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -101,7 +98,22 @@ const ApplicantsInfo = () => {
                     </Popover>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} className="py-16 text-center">
+                  <div className="flex flex-col items-center justify-center text-gray-500">
+                    <Users className="w-10 h-10 mb-2" />
+                    <p className="text-base font-medium">
+                      No applicants have applied for this job yet.
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      Once users apply, their info will show up here.
+                    </p>
+                  </div>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>

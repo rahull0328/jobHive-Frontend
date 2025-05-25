@@ -1,12 +1,23 @@
 import React from "react";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
 import { Badge } from "../ui/badge";
+import { useSelector } from "react-redux";
+import store from "@/redux/store";
 
 const AppliedJobsTable = () => {
+  const { allAppliedJobs } = useSelector((store) => store.job);
+
   return (
     <div>
       <Table>
-        <TableCaption>A list of your applied jobs</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Date</TableHead>
@@ -16,16 +27,26 @@ const AppliedJobsTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {
-            [1,2].map((item, index) => (
-                <TableRow key={index}>
-                    <TableCell>17-07-2025</TableCell>
-                    <TableCell>Frontend Developer</TableCell>
-                    <TableCell>Google</TableCell>
-                    <TableCell className='text-right'><Badge>Selected</Badge></TableCell>
-                </TableRow>
+          {!allAppliedJobs || allAppliedJobs.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center">
+                Apply to Jobs to see the list here..
+              </TableCell>
+            </TableRow>
+          ) : (
+            allAppliedJobs.map((appliedJob, index) => (
+              <TableRow key={appliedJob._id}>
+                <TableCell>{appliedJob?.createdAt?.split("T")[0]}</TableCell>
+                <TableCell>{appliedJob.job?.title}</TableCell>
+                <TableCell>{appliedJob.job?.company?.name}</TableCell>
+                <TableCell className="text-right">
+                  <Badge className={`${appliedJob?.status === "rejected" ? 'bg-red-400' : appliedJob.status === 'pending' ? 'bg-gray-400' : 'bg-green-400'}`}>
+                    {appliedJob.status.toUpperCase()}
+                  </Badge>
+                </TableCell>
+              </TableRow>
             ))
-          }
+          )}
         </TableBody>
       </Table>
     </div>
