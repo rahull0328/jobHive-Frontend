@@ -8,85 +8,100 @@ import { Label } from "../ui/label";
 import AppliedJobsTable from "./AppliedJobsTable";
 import UpdateProfile from "./UpdateProfile";
 import { useSelector } from "react-redux";
-import store from "@/redux/store";
 import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 
-// const skills = ["HTML", "CSS", "JS", "React", "Node", "Express"];
 const isResume = true;
-const Profile = () => {
 
-  //calling the applied jobs hook
-  useGetAppliedJobs()
+const Profile = () => {
+  useGetAppliedJobs();
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store) => store.auth);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
-      <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-20 p-8">
-        <div className="flex justify-between">
-          <div className="flex items-center gap-4">
-            <Avatar className="h-24 w-24">
-              <AvatarImage
-                src={user?.profile?.profilePhoto}
-                alt="profile"
-              />
-            </Avatar>
-            <div>
-              <h1 className="font-medium text-xl">{user?.fullname}</h1>
-              <p>{user?.profile?.bio}</p>
+      <main className="max-w-4xl mx-auto my-20 space-y-12 px-4 sm:px-6 lg:px-8">
+        {/* Profile Card */}
+        <section className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 shadow-md">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+            <div className="flex items-center gap-6">
+              <Avatar className="h-24 w-24 rounded-full border-2 border-pink-400">
+                <AvatarImage src={user?.profile?.profilePhoto} alt="profile" />
+              </Avatar>
+              <div>
+                <h1 className="font-semibold text-2xl text-gray-900 dark:text-gray-100">
+                  {user?.fullname}
+                </h1>
+                <p className="text-gray-600 dark:text-gray-300 mt-1 max-w-md">
+                  {user?.profile?.bio || "No bio provided"}
+                </p>
+              </div>
+            </div>
+            <Button
+              onClick={() => setOpen(true)}
+              className="self-start sm:self-center"
+              variant="outline"
+              aria-label="Edit Profile"
+            >
+              <Pen />
+            </Button>
+          </div>
+
+          {/* Contact Info */}
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300">
+            <div className="flex items-center gap-3">
+              <Mail className="text-pink-500" />
+              <span>{user?.email || "Not Provided"}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Contact className="text-pink-500" />
+              <span>{user?.phoneNumber || "Not Provided"}</span>
             </div>
           </div>
-          <Button
-            onClick={() => setOpen(true)}
-            className="text-right"
-            variant="outline"
-          >
-            <Pen />
-          </Button>
-        </div>
-        <div className="my-5">
-          <div className="flex items-center gap-3 my-2">
-            <Mail />
-            <span>{user?.email}</span>
+
+          {/* Skills */}
+          <div className="mt-8">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {user?.profile?.skills?.length > 0 ? (
+                user.profile.skills.map((skill, idx) => (
+                  <Badge key={idx} className="bg-pink-100 text-pink-700 dark:bg-pink-700 dark:text-pink-100">
+                    {skill}
+                  </Badge>
+                ))
+              ) : (
+                <span className="text-gray-500 dark:text-gray-400">No skills listed</span>
+              )}
+            </div>
           </div>
-          <div className="flex items-center gap-3 my-2">
-            <Contact />
-            <span>{user?.phoneNumber}</span>
-          </div>
-        </div>
-        <div className="my-5">
-          <h1>Skills</h1>
-          <div className="flex items-center gap-1">
-            {user?.profile?.skills.length !== 0 ? (
-              user?.profile?.skills.map((item, index) => (
-                <Badge key={index}>{item}</Badge>
-              ))
+
+          {/* Resume */}
+          <div className="mt-8 max-w-sm">
+            <Label className="text-md font-bold mb-1 block text-gray-800 dark:text-gray-200">Resume</Label>
+            {isResume && user?.profile?.resume ? (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={user.profile.resume}
+                className="text-pink-600 dark:text-pink-400 hover:underline break-words"
+              >
+                {user.profile.resumeOriginalName || "View Resume"}
+              </a>
             ) : (
-              <span>NA</span>
+              <span className="text-gray-500 dark:text-gray-400">No resume uploaded</span>
             )}
           </div>
-        </div>
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label className="text-md font-bold">Resume</Label>
-          {isResume ? (
-            <a
-              target="blank"
-              href={user?.profile?.resume}
-              className="text-[#EF88AD] w-full hover:underline cursor-pointer"
-            >
-              {user?.profile?.resumeOriginalName}
-            </a>
-          ) : (
-            <span>NA</span>
-          )}
-        </div>
-      </div>
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-        <h1 className="font-bold text-lg my-5">Applied Jobs</h1>
-        {/* Applied Job Table   */}
-        <AppliedJobsTable />
-      </div>
+        </section>
+
+        {/* Applied Jobs Section */}
+        <section className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md">
+          <h2 className="text-2xl font-extrabold mb-6 text-gray-900 dark:text-gray-100">
+            My Job Applications
+          </h2>
+          <AppliedJobsTable />
+        </section>
+      </main>
+
       <UpdateProfile open={open} setOpen={setOpen} />
     </div>
   );
