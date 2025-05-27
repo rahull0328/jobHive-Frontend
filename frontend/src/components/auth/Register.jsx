@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -24,7 +24,7 @@ const Register = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, user } = useSelector((store) => store.auth);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -64,6 +64,9 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    
+  })
   return (
     <div>
       <Navbar />
