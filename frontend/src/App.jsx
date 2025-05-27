@@ -15,6 +15,7 @@ import AdminJobsInfo from './components/admin/AdminJobsInfo'
 import PostJob from './components/admin/PostJob'
 import JobSetup from './components/admin/JobSetup'
 import TotalApplicants from './components/admin/TotalApplicants'
+import ProtectedRoutes from './components/admin/ProtectedRoutes'
 
 const appRouter = createBrowserRouter([
   //student routes
@@ -36,45 +37,45 @@ const appRouter = createBrowserRouter([
   },
   {
     path: '/description/:id',
-    element: <JobDescription />
+    element: <ProtectedRoutes><JobDescription /></ProtectedRoutes>
   },
   {
     path: '/browse',
-    element: <Browse />
+    element: <ProtectedRoutes><Browse /></ProtectedRoutes>
   },
   {
     path: '/profile',
-    element: <Profile />
+    element: <ProtectedRoutes><Profile /></ProtectedRoutes>
   },
 
   //admin routes
   {
     path: '/admin/companies',
-    element: <Companies />
+    element: <ProtectedRoutes requiredRole="recruiter"><Companies /></ProtectedRoutes>
   },
   {
     path: '/admin/companies/create',
-    element: <CreateCompany />
+    element: <ProtectedRoutes requiredRole="recruiter"><CreateCompany /></ProtectedRoutes>
   },
   {
     path: '/admin/companies/:id',
-    element: <CompanySetup />
+    element: <ProtectedRoutes requiredRole="recruiter"><CompanySetup /></ProtectedRoutes>
   },
   {
     path: '/admin/jobs',
-    element: <AdminJobs />
+    element: <ProtectedRoutes requiredRole="recruiter"><AdminJobs /></ProtectedRoutes>
   },
   {
     path: '/admin/jobs/create',
-    element: <PostJob />
+    element: <ProtectedRoutes requiredRole="recruiter"><PostJob /></ProtectedRoutes>
   },
   {
     path: '/admin/jobs/:id',
-    element: <JobSetup />
+    element: <ProtectedRoutes requiredRole="recruiter"><JobSetup /></ProtectedRoutes>
   },
   {
     path: '/admin/jobs/:id/applicants',
-    element: <TotalApplicants />
+    element: <ProtectedRoutes requiredRole="recruiter"><TotalApplicants /></ProtectedRoutes>
   },
 ])
 
