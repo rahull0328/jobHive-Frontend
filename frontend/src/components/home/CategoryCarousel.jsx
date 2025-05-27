@@ -42,7 +42,7 @@ const CategoryCarousel = () => {
                 className="md:basis-1/2 lg:basis-1/3"
               >
                 <Button
-                  onClick={() => searchJobHandler(cat)}
+                  onClick={() => searchJobHandler(cat.label)}
                   variant="outline" 
                   className="rounded-full w-full py-4 text-sm font-medium transition-all hover:bg-primary hover:text-white"
                 >
