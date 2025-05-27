@@ -16,7 +16,7 @@ import { APPLICATION_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
 
 // Sample status array
-const shortlistingStatus = ["Shortlisted", "Pending", "Rejected"];
+const shortlistingStatus = ["Accepted", "Pending", "Rejected"];
 
 const ApplicantsInfo = () => {
   const { applicants } = useSelector((store) => store.application);

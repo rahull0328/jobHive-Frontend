@@ -21,7 +21,7 @@ const useGetAllJobs = () => {
         }
     }
     fetchAllJobs()
-  }, [])
+  }, [searchedQuery])
 }
 
 export default useGetAllJobs
