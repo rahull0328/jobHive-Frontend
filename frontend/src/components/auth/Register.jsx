@@ -65,12 +65,14 @@ const Register = () => {
   };
 
   useEffect(() => {
-    
+    if(user) {
+      navigate("/")
+    }
   })
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center px-2 py-10">
+      <div className="flex items-center justify-center mt-16 px-2 py-10">
         <form
           onSubmit={submitHandler}
           className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-6 md:p-10"
