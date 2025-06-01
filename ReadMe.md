@@ -1,4 +1,3 @@
-````markdown
 # JobHive 🚀
 
 JobHive is a dynamic MERN‑stack job portal with a stunning UI ✨. It features smart search & filtering 🔍, plus tailored views for recruiters 🏢 and students 🎓—making job hunting and hiring smooth and intuitive.
@@ -16,9 +15,7 @@ JobHive is a dynamic MERN‑stack job portal with a stunning UI ✨. It features
   - [Backend](#backend)  
   - [Frontend](#frontend)  
 - [Usage](#usage)  
-- [Contributing](#contributing)  
-- [License](#license)  
-- [Author](#author)  
+- [Contributing](#contributing)    
 
 ---
 
@@ -104,7 +101,6 @@ jobHive/
   * `redux/` (if applicable): State management logic.
   * `utils/`: Generic helpers (e.g., token utilities, form validation).
 
----
 
 ## Setup & Installation ⚙️
 
@@ -125,7 +121,7 @@ PORT=5000
 MONGO_URI=<your_mongo_connection_string>
 JWT_SECRET=<your_jwt_secret>
 CLIENT_URL=http://localhost:3000
-```
+
 
 * `PORT`: Port for backend server (default: 5000).
 * `MONGO_URI`: MongoDB connection string.
