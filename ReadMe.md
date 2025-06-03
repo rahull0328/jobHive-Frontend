@@ -6,16 +6,16 @@ JobHive is a dynamic MERN‑stack job portal with a stunning UI ✨. It features
 
 ## Table of Contents 📚
 
-- [Features](#features)  
-- [Tech Stack](#tech-stack)  
-- [Project Structure](#project-structure)  
-- [Setup & Installation](#setup--installation)  
-  - [Prerequisites](#prerequisites)  
-  - [Environment Variables](#environment-variables)  
-  - [Backend](#backend)  
-  - [Frontend](#frontend)  
-- [Usage](#usage)  
-- [Contributing](#contributing)    
+- [Features](#features-)  
+- [Tech Stack](#tech-stack-️)  
+- [Project Structure](#project-structure-)  
+- [Setup & Installation](#setup--installation-️)  
+  - [Prerequisites](#prerequisites-)  
+  - [Environment Variables](#environment-variables-)  
+  - [Backend](#backend-️)  
+  - [Frontend](#frontend-)  
+- [Usage](#usage-)  
+- [Contributing](#contributing-)    
 
 ---
 
@@ -129,6 +129,7 @@ CLIENT_URL=http://localhost:3000
 * `CLIENT_URL`: URL of the React frontend (used in CORS settings).
 
 Copy `backend/.env.example` to `backend/.env` and fill in your own values.
+```
 
 ### Backend 🖥️
 
