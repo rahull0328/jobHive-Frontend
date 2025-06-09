@@ -34,8 +34,6 @@ JobHive is a dynamic MERN‑stack job portal with a stunning UI ✨. It features
 - **Profile Management 👤**  
   - Students can upload resumes 📄, update details, and track applications.  
   - Recruiters can manage company profiles 🏭 and posted jobs.  
-- **Notifications 🔔** (if implemented)  
-  In‑app or email alerts for new applications or job status updates.  
 
 ---
 
@@ -47,7 +45,7 @@ JobHive is a dynamic MERN‑stack job portal with a stunning UI ✨. It features
 | **Server 🏗️**   | Node.js, Express.js                                              |
 | **Database 🗄️** | MongoDB (Mongoose ORM)                                           |
 | **Auth 🛡️**     | JSON Web Tokens (JWT)                                            |
-| **Styling 🎨**  | Tailwind CSS (or Bootstrap / Material UI if preferred)          |
+| **Styling 🎨**  | Tailwind CSS          |
 | **Misc 🧰**     | Dotenv for environment variables, bcrypt for password hashing   |
 
 ---
@@ -97,7 +95,6 @@ jobHive/
 
   * `components/`: Presentational components reused across multiple pages.
   * `pages/`: Route‑specific components (e.g., `Home.jsx`, `JobDetails.jsx`, `Dashboard.jsx`).
-  * `services/`: Abstraction for HTTP calls to backend (using Axios).
   * `redux/` (if applicable): State management logic.
   * `utils/`: Generic helpers (e.g., token utilities, form validation).
 
