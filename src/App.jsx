@@ -1,7 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
+<<<<<<< HEAD
 import Login from './components/auth/login'
 import Register from './components/auth/register'
+=======
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+>>>>>>> 688e23c (final commit)
 import Home from './components/Home'
 import Jobs from './components/jobs/Jobs'
 import Browse from './components/browse/Browse'
@@ -11,7 +16,10 @@ import Companies from './components/admin/Companies'
 import CreateCompany from './components/admin/CreateCompany'
 import CompanySetup from './components/admin/CompanySetup'
 import AdminJobs from './components/admin/AdminJobs'
+<<<<<<< HEAD
 import AdminJobsInfo from './components/admin/AdminJobsInfo'
+=======
+>>>>>>> 688e23c (final commit)
 import PostJob from './components/admin/PostJob'
 import JobSetup from './components/admin/JobSetup'
 import TotalApplicants from './components/admin/TotalApplicants'
