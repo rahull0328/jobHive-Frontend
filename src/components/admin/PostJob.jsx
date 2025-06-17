@@ -123,7 +123,7 @@ const PostJob = () => {
                 name="salary"
                 value={input.salary}
                 onChange={changeEventHandler}
-                placeholder="e.g., ₹5,00,000 per annum"
+                placeholder="e.g., 5, 6, 7 (LPA) etc"
                 className="mt-2"
               />
             </div>
