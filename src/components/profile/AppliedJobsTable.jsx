@@ -8,8 +8,6 @@ const AppliedJobsTable = () => {
   if (!allAppliedJobs || allAppliedJobs.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center text-gray-500 dark:text-gray-400">
-        {/* Replace below with any icon you like */}
-        <EmptyIcon className="w-20 h-20 mb-6 stroke-current" />
         <h3 className="text-xl font-semibold mb-2">No Applications Yet</h3>
         <p className="max-w-xs">
           You haven’t applied to any jobs yet. Start exploring opportunities and apply to your favorite jobs!
