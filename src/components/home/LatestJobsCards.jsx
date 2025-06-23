@@ -7,7 +7,8 @@ const LatestJobsCards = ({ job }) => {
   const navigate = useNavigate()
 
   return (
-    <div onClick={() => navigate(`/description/${job._id}`)} className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto p-6 rounded-2xl shadow-md bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer">
+    <div onClick={() => navigate(`/description/${job._id}`)}
+      className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto ms-2 p-6 rounded-2xl shadow-md bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer">
       <div className="space-y-1">
         <h1 className="text-xl font-semibold text-gray-800">{job?.company?.name}</h1>
         <p className="text-sm text-gray-500">{job?.company?.location}</p>
