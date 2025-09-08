@@ -1,0 +1,20 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent MIME-type sniffing
+    X-Content-Type-Options = "nosniff"
+    # Prevent clickjacking
+    X-Frame-Options = "DENY"
+    # Enable basic XSS protection
+    X-XSS-Protection = "1; mode=block"
+    # Force HTTPS
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    # Allow loading resources only from same origin (adjust if you use CDNs)
+    Content-Security-Policy = "default-src 'self'; img-src * data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src * data:;"
+    # Control caching
+    Cache-Control = "public, max-age=0, must-revalidate"
