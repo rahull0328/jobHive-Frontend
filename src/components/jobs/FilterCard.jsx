@@ -41,23 +41,20 @@ const FilterCard = () => {
       {filterData.map((data, index) => (
         <div key={index}>
           <h1 className="font-bold text-md mt-4">{data.filterType}</h1>
+          <RadioGroup value={selectedFilters[data.filterType]} onValueChange={(value) => handleFilterChange(data.filterType, value)}>
           {data.array.map((item, idx) => {
             const itemId = `id-${index}-${idx}`;
             return (
               <div className="flex items-center space-x-2 my-2" key={itemId}>
-                <RadioGroup>
-
                 <RadioGroupItem
                   id={itemId}
                   value={item}
-                  checked={selectedFilters[data.filterType] === item}
-                  onClick={() => handleFilterChange(data.filterType, item)}
                 />
-                </RadioGroup>
                 <Label htmlFor={itemId}>{item}</Label>
               </div>
             );
           })}
+          </RadioGroup>
         </div>
       ))}
     </div>

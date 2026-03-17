@@ -12,11 +12,11 @@ const Jobs = () => {
   const getSalaryRange = (label) => {
     switch (label) {
       case "0-40K":
-        return [0, 40000];
+        return [0, 4]; // 0-4 LPA
       case "42K-1lakh":
-        return [42000, 100000];
+        return [4.2, 10]; // 4.2-10 LPA
       case "1lakh to 5lakh":
-        return [100000, 500000];
+        return [10, 50]; // 10-50 LPA
       default:
         return [0, Infinity];
     }
@@ -26,15 +26,20 @@ const Jobs = () => {
     const { Location, Industry, Salary } = searchedQuery || {};
 
     const filtered = allJobs.filter((job) => {
+      // Fixed: Use job.company.location instead of job.location
       const matchesLocation =
-        !Location || job.location?.toLowerCase() === Location.toLowerCase();
+        !Location || job.company?.location?.toLowerCase().includes(Location.toLowerCase());
+
+      // Fixed: Use partial matching for job title/industry
       const matchesIndustry =
-        !Industry || job.title?.toLowerCase() === Industry.toLowerCase();
+        !Industry || job.title?.toLowerCase().includes(Industry.toLowerCase());
 
       let matchesSalary = true;
       if (Salary) {
         const [min, max] = getSalaryRange(Salary);
-        matchesSalary = job.salary >= min && job.salary <= max;
+        // Fixed: Parse salary as number since it's stored as string like "5" for 5 LPA
+        const jobSalary = parseFloat(job.salary);
+        matchesSalary = jobSalary >= min && jobSalary <= max;
       }
 
       return matchesLocation && matchesIndustry && matchesSalary;
